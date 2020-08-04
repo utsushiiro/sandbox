@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
-	"github.com/utsushiiro/prometheus-sandbox/sample-app/metrics"
+	"github.com/utsushiiro/sandbox/golang/echo-prometheus-instrumentation/sample-app/metrics"
 )
 
 func init() {
