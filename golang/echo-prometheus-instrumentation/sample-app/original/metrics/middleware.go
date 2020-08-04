@@ -24,8 +24,9 @@ func init() {
 	// - 計測で対処
 	//		- code % 100の値をcodeとは別のラベルで付与する
 	requestCount = promauto.NewCounterVec(prometheus.CounterOpts{
-		Name: "http_request_count_total",
-		Help: "Counter of HTTP requests made.",
+		Namespace: "sample_app",
+		Name:      "http_request_count_total",
+		Help:      "Counter of HTTP requests made.",
 	}, []string{"code"})
 
 	requestDuration = promauto.NewHistogramVec(prometheus.HistogramOpts{
