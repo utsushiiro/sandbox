@@ -54,17 +54,16 @@ func Measure(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		start := time.Now()
 		err := next(c)
+		if err != nil {
+			c.Error(err)
+		}
 		end := time.Now()
 
-		// エラーが空でStatusが定まっている場合(値が0でない場合)にのみ各種値を計測する
-		// このあたりの扱いはエラーハンドリングの方針に依存するため利用する際に調整が必要
 		statusCode := c.Response().Status
-		if err == nil && statusCode != 0 {
-			requestCount.WithLabelValues(strconv.Itoa(statusCode)).Inc()
-			requestDuration.WithLabelValues(strconv.Itoa(statusCode)).Observe(end.Sub(start).Seconds())
-			requestSize.WithLabelValues(strconv.Itoa(statusCode)).Observe(float64(computeApproximateRequestSize(c.Request())))
-			responseSize.WithLabelValues(strconv.Itoa(statusCode)).Observe(float64(c.Response().Size))
-		}
+		requestCount.WithLabelValues(strconv.Itoa(statusCode)).Inc()
+		requestDuration.WithLabelValues(strconv.Itoa(statusCode)).Observe(end.Sub(start).Seconds())
+		requestSize.WithLabelValues(strconv.Itoa(statusCode)).Observe(float64(computeApproximateRequestSize(c.Request())))
+		responseSize.WithLabelValues(strconv.Itoa(statusCode)).Observe(float64(c.Response().Size))
 
 		return err
 	}
