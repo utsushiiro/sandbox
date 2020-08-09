@@ -52,6 +52,11 @@ func init() {
 // Measure : HTTPの各種メトリクスを計測するミドルウェア
 func Measure(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
+		// prometheus用エンドポイントでは計測を行わない
+		if c.Path() == "/metrics" {
+			return next(c)
+		}
+
 		start := time.Now()
 		err := next(c)
 		if err != nil {
