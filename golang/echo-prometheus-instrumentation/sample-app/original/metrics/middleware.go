@@ -74,7 +74,10 @@ func Measure(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-// https://github.com/prometheus/client_golang/blob/c650ae9fa1039588f417cbc526ddb8155ace7613/prometheus/promhttp/instrument_server.go#L298-L320
+// 以下の関数はApache License 2.0で提供されるソフトウェアのコードを引用しています
+// 引用元ソフトウェアのライセンス: https://github.com/prometheus/client_golang/blob/c650ae9fa1039588f417cbc526ddb8155ace7613/LICENSE
+// 引用部分: https://github.com/prometheus/client_golang/blob/c650ae9fa1039588f417cbc526ddb8155ace7613/prometheus/promhttp/instrument_server.go#L298-L320
+// 著作者: The Prometheus Authors
 func computeApproximateRequestSize(r *http.Request) int {
 	s := 0
 	if r.URL != nil {
