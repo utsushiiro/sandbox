@@ -1,9 +1,6 @@
-### https://raw.github.com/github/gitignore/a00cb872ef1e0fb64dcbe9435b47fd7f00065ee9/Scala.gitignore
-
-*.class
-*.log
-
-
-## Custom
-/project
-/target
+project/target/
+target/
+.idea/
+.cache-main
+.cache-tests
+.classpath
